@@ -1,0 +1,136 @@
+* {
+    box-sizing: border-box;
+}
+  
+:root {
+    --grid-size: 100px;
+    --mark-size: calc(var(--grid-size) * .9);
+}
+  
+body {
+    margin: 0;
+}
+  
+.board {
+    background-image: linear-gradient(rgba(0,0,0, 0.3),rgba(0,0,0,0.3)), url(/bkimg.jpg);
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto)
+}
+  
+.grid {
+    background-color: rgb(176, 191, 219);
+    width: var(--grid-size);
+    height: var(--grid-size);
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+  
+
+
+.grid.x,
+.grid.o {
+    cursor: not-allowed;
+}
+
+.grid.x::before,
+.grid.x::after,
+.grid.o::before {
+    background-color: rgb(34, 17, 56);
+}
+
+.grid.o::before {
+    background-color: rgb(250, 71, 71);
+}
+
+.board.x .grid:not(.x):not(.o):hover::before,
+.board.x .grid:not(.x):not(.o):hover::after,
+.board.o .grid:not(.x):not(.o):hover::before {
+    background-color: rgb(255, 253, 253);
+}
+
+.grid.x::before,
+.grid.x::after,
+.board.x .grid:not(.x):not(.o):hover::before,
+.board.x .grid:not(.x):not(.o):hover::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+}
+
+.grid.x::before,
+.board.x .grid:not(.x):not(.o):hover::before {
+    transform: rotate(45deg);
+}
+
+.grid.x::after,
+.board.x .grid:not(.x):not(.o):hover::after {
+    transform: rotate(-45deg);
+}
+
+.grid.o::before,
+.grid.o::after,
+.board.o .grid:not(.x):not(.o):hover::before,
+.board.o .grid:not(.x):not(.o):hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.grid.o::before,
+.board.o .grid:not(.x):not(.o):hover::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+}
+
+.grid.o::after,
+.board.o .grid:not(.x):not(.o):hover::after {
+    width: calc(var(--mark-size) * .7);
+    height: calc(var(--mark-size) * .7);
+    background-color: rgb(176, 191, 219);
+}
+
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: blue;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.winning-message button {
+    font-size: 3rem;
+    background-color: rgb(23, 116, 80);
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+}
+
+.winning-message button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.winning-message.show {
+    display: flex;
+}
